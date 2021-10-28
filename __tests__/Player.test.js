@@ -65,3 +65,30 @@ test("subtract's from player's health", () => {
 
     expect(player.health).toBe(0);
 });
+
+test("gets player's attack value", () => {
+    const player = new Player('Dave');
+    player.strenth = 10;
+
+    expect(player.getAttackValue()).toBeGreaterThanOrEqual(5);
+    expect(player.getAttackValue()).toBeLessThanOrEqual(15);
+});
+
+// again, we're using the Potion mock from the previous lesson.
+test('adds a potion to the inventory', () => {
+    const player = new Player('Dave');
+    const oldCount = player.inventory.length;
+
+    player.addPotion(new Potion());
+
+    expect(player.inventory.length).toBeGreaterThanOrEqual(oldCount);
+});
+
+test('uses a potion from inventory', () => {
+    const player = new Player('Dave');
+    player.inventory = [new Potion(), new Potion(), new Potion()];
+    const oldCount = player.inventory.length;
+
+    player.usePotion(1);
+    expect(player.inventory.length).toBeLessThan(oldCount);
+})
